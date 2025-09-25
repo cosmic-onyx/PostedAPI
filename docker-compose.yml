@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  django-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    working_dir: /usr/src/app/drf
+    environment:
+      DJANGO_SETTINGS_MODULE: drf.settings
+    volumes:
+      - .:/usr/src/app
+    command:  bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    depends_on:
+      - postgres_db
+
+  postgres_db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres

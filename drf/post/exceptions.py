@@ -1,0 +1,2 @@
+class ManipulationObjectIsNotUserOwn(Exception):
+    pass
